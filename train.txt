@@ -1,0 +1,16 @@
+python train_vae.py \
+  --image_dir ./data/coco/images \
+  --epochs 10 \
+  --batch_size 16 \
+  --dataset_type local
+
+python train_text_encoder.py \
+  --image_dir ./data/coco/images \
+  --captions_file ./data/coco/captions.json \
+  --vae_checkpoint ./checkpoints/vae/vae_final.pt \
+  --epochs 10 \
+  --batch_size 128
+
+python train_pipeline.py \
+  --vae_checkpoint ./checkpoints/vae/vae_final.pt \
+  --text_encoder_checkpoint ./checkpoints/text_encoder/text_encoder_final.pt
